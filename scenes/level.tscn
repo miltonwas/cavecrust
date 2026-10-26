@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dd6jr1oamrqyp"]
+
+[ext_resource type="PackedScene" uid="uid://cruhh26d4tmye" path="res://scenes/player.tscn" id="1_2q6dc"]
+[ext_resource type="Texture2D" uid="uid://7rhx1gj3061k" path="res://Assets/cave_pics/hd_level1_tile.png" id="2_mx8sn"]
+[ext_resource type="Texture2D" uid="uid://bbuvlo1bq0ncq" path="res://Assets/cave_pics/hd_level2_tile.png" id="3_ppgk2"]
+[ext_resource type="Texture2D" uid="uid://cr6662u8yv3rs" path="res://Assets/cave_pics/hd_level3_tile.png" id="4_2r41h"]
+[ext_resource type="Script" uid="uid://bqy5qdsc4j4h" path="res://scripts/level.gd" id="5_level"]
+[ext_resource type="Texture2D" uid="uid://cxrsx42r3pmni" path="res://Assets/cave_pics/cave_transitions/hd_level1_to_2_strip.png" id="6_klq6b"]
+[ext_resource type="Texture2D" uid="uid://brehvdq1io340" path="res://Assets/cave_pics/overlay_depth_fade.png" id="7_8c41q"]
+[ext_resource type="Texture2D" uid="uid://4fum0yebmdaa" path="res://Assets/cave_pics/cave_transitions/hd_level2_to_3_strip.png" id="7_b121j"]
+[ext_resource type="Texture2D" uid="uid://cr5ewdtg6wjvd" path="res://Assets/hd_platform.png" id="8_b121j"]
+
+[sub_resource type="Gradient" id="Gradient_vignette"]
+offsets = PackedFloat32Array(0.10240964, 0.2, 0.8, 0.8915663)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vignette"]
+gradient = SubResource("Gradient_vignette")
+
+[node name="Level" type="Node2D" unique_id=2020780794]
+script = ExtResource("5_level")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=965405618]
+scale = Vector2(1.5, 1.5)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Cave_1" type="Sprite2D" parent="." unique_id=1880623393]
+texture = ExtResource("2_mx8sn")
+
+[node name="Cave_2" type="Sprite2D" parent="." unique_id=363936076]
+visible = false
+texture = ExtResource("3_ppgk2")
+
+[node name="Cave_3" type="Sprite2D" parent="." unique_id=528635847]
+visible = false
+texture = ExtResource("4_2r41h")
+
+[node name="Cave_1-2" type="Sprite2D" parent="." unique_id=1004807385]
+visible = false
+position = Vector2(565, 36)
+texture = ExtResource("6_klq6b")
+
+[node name="Cave_2-3" type="Sprite2D" parent="." unique_id=1821379928]
+visible = false
+position = Vector2(564, 57)
+texture = ExtResource("7_b121j")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1743512782]
+position = Vector2(0, 25)
+scale = Vector2(2, 2)
+texture = ExtResource("7_8c41q")
+
+[node name="Platform" type="Sprite2D" parent="." unique_id=1670886540]
+texture = ExtResource("8_b121j")
+
+[node name="Player" parent="." unique_id=567548331 instance=ExtResource("1_2q6dc")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1186845777]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=251480495]
+build_mode = 1
+polygon = PackedVector2Array(0, -125, 72, -118, 114, -104, 157, -80, 185, -51, 200, -16, 200, 18, 179, 55, 145, 86, 95, 110, 36, 123, -5, 123, -48, 120, -102, 108, -147, 85, -179, 56, -199, 19, -198, -17, -181, -56, -145, -88, -99, -112, -48, -122)
+
+[node name="Vignette" type="CanvasLayer" parent="." unique_id=520263571]
+
+[node name="TextureRect" type="TextureRect" parent="Vignette" unique_id=1549946742]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_vignette")
+expand_mode = 1
