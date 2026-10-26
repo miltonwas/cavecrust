@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://du6ppsamkkon5"]
+
+[ext_resource type="FontFile" uid="uid://cawstl78vr723" path="res://Assets/fonts/BoldPixels.ttf" id="1_nt7q6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f23mj"]
+font = ExtResource("1_nt7q6")
+font_size = 35
+
+[node name="UI" type="CanvasLayer" unique_id=3063609]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=831290791]
+offset_right = 153.0
+offset_bottom = 42.0
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=647444736]
+layout_mode = 2
+text = " Lives: 3"
+label_settings = SubResource("LabelSettings_f23mj")

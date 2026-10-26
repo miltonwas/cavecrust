@@ -1,43 +1,62 @@
 extends Node2D
 
-# Which cave image scrolls: 1, 2 or 3. Change it from code with: cave = 2
+# Strip rows in one strip image (its height).
+const STRIP_ROWS := 1280
+
+@onready var cave_material: ShaderMaterial = $Cave.material
+
+# Which cave to start in: 1 = gold mine, 2 = crystal cave, 3 = magma.
+# Change it from code with: cave = 2
 @export var cave := 2:
 	set(value):
 		cave = value
 		if is_node_ready():
-			_show_cave()
+			_jump_to_cave()
 
-# Pixels per second the image moves. (0, -100) = upwards, (100, 0) = right.
-@export var speed := Vector2(0, -100)
+# How fast the platform goes down, in strip rows per second. Negative = up.
+@export var speed := 80.0
 
-# Extra pixels the image repeats past its edges, on each side. (0, 300) = taller.
-@export var margin := Vector2(0, 300):
+# The speed where the wheels spin at their normal animation speed.
+# Twice as fast down = wheels spin twice as fast. Going up spins them backwards.
+@export var wheel_base_speed := 40.0
+
+# How many strip lengths each cave lasts before the transition to the next.
+@export var cave_length := 3:
 	set(value):
-		margin = value
+		cave_length = value
 		if is_node_ready():
-			_show_cave()
+			cave_material.set_shader_parameter("tiles_level1", cave_length)
+			cave_material.set_shader_parameter("tiles_level2", cave_length)
+
+# How far down the platform has gone, in strip rows.
+var depth := 0.0
 
 
-# Called when the node enters the scene tree for the first time.efsfsefsef
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	cave = 3
-	_show_cave()
-	
+	cave_length = cave_length
+	_jump_to_cave()
+	for wheel in _wheels():
+		wheel.play("default")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var image: Sprite2D = get_node("Cave_%d" % cave)
-	# Move the picture inside the image, and wrap around so it loops forever.
-	image.region_rect.position -= speed * delta
-	image.region_rect.position = image.region_rect.position.posmodv(image.texture.get_size())
+	depth += speed * delta
+	cave_material.set_shader_parameter("depth_rows", depth)
+	# Spin the wheels as fast as the platform moves.
+	for wheel in _wheels():
+		wheel.speed_scale = speed / wheel_base_speed
 
 
-# Shows the chosen cave and hides the others.
-func _show_cave() -> void:
-	for i in [1, 2, 3]:
-		get_node("Cave_%d" % i).visible = i == cave
-	var image: Sprite2D = get_node("Cave_%d" % cave)
-	image.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
-	image.region_enabled = true
-	image.region_rect = Rect2(Vector2.ZERO, image.texture.get_size() + margin * 2)
+# All the animated wheels on the platform.
+func _wheels() -> Array[Node]:
+	return $Platform.get_children().filter(func(n): return n is AnimatedSprite2D)
+
+
+# Moves straight to the start of the chosen cave.
+func _jump_to_cave() -> void:
+	# Each cave is cave_length strips followed by one transition strip.
+	# The view reaches 219 rows above the depth, so start a bit in to hide the previous cave.
+	depth = (cave - 1) * (cave_length + 1) * STRIP_ROWS + 220
+	cave_material.set_shader_parameter("depth_rows", depth)
