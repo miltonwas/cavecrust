@@ -4,10 +4,11 @@ extends Node2D
 const STRIP_ROWS := 1280
 
 @onready var cave_material: ShaderMaterial = $Cave.material
+@onready var depth_gauge = $UI/DepthGauge
 
 # Which cave to start in: 1 = gold mine, 2 = crystal cave, 3 = magma.
 # Change it from code with: cave = 2
-@export var cave := 2:
+@export var cave := 1:
 	set(value):
 		cave = value
 		if is_node_ready():
@@ -44,6 +45,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	depth += speed * delta
 	cave_material.set_shader_parameter("depth_rows", depth)
+	depth_gauge.progress = depth_gauge.progress_from_depth(depth * 0.5)
 	# Spin the wheels as fast as the platform moves.
 	for wheel in _wheels():
 		wheel.speed_scale = speed / wheel_base_speed

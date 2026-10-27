@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://brmeej1ti1fsp" path="res://Assets/cave_pics/cave shader/strip_transition_1_to_2.png" id="16_t12"]
 [ext_resource type="Texture2D" uid="uid://cxd75p5s36w2v" path="res://Assets/cave_pics/cave shader/strip_level2_crystalcave.png" id="17_level2"]
 [ext_resource type="Texture2D" uid="uid://cragyer4v6u6q" path="res://Assets/cave_pics/cave shader/strip_transition_2_to_3.png" id="18_t23"]
+[ext_resource type="PackedScene" uid="uid://wop0eb672o2n" path="res://scenes/enemy_mini.tscn" id="19_gunhw"]
 [ext_resource type="Texture2D" uid="uid://bmjj7sidkla41" path="res://Assets/cave_pics/cave shader/strip_level3_magma.png" id="19_level3"]
 [ext_resource type="Texture2D" uid="uid://chn775f8khb82" path="res://Assets/hd_platform_wheelless.png" id="20_platform"]
 [ext_resource type="Texture2D" uid="uid://c4v4u6i2eub1u" path="res://Assets/platform/wheel_back_left.png" id="21_WheelBackLeft"]
@@ -289,13 +290,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_vignette"]
-offsets = PackedFloat32Array(0.11445783, 0.2, 0.77710843, 0.8674699)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vignette"]
-gradient = SubResource("Gradient_vignette")
-
 [node name="Level" type="Node2D" unique_id=2020780794]
 script = ExtResource("5_level")
 
@@ -352,16 +346,7 @@ limit_bottom = 260
 build_mode = 1
 polygon = PackedVector2Array(0, -125, 72, -118, 114, -104, 157, -80, 185, -51, 200, -16, 200, 18, 179, 55, 145, 86, 95, 110, 36, 123, -5, 123, -48, 120, -102, 108, -147, 85, -179, 56, -199, 19, -198, -17, -181, -56, -145, -88, -99, -112, -48, -122)
 
-[node name="Vignette" type="CanvasLayer" parent="." unique_id=520263571]
-
-[node name="TextureRect" type="TextureRect" parent="Vignette" unique_id=1549946742]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_vignette")
-expand_mode = 1
-
 [node name="UI" parent="." unique_id=3063609 instance=ExtResource("10_olg7q")]
+
+[node name="EnemyMini" parent="." unique_id=127921243 instance=ExtResource("19_gunhw")]
+position = Vector2(-45, 6)

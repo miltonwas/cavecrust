@@ -1,12 +1,36 @@
 [gd_scene format=3 uid="uid://du6ppsamkkon5"]
 
 [ext_resource type="FontFile" uid="uid://cawstl78vr723" path="res://Assets/fonts/BoldPixels.ttf" id="1_nt7q6"]
+[ext_resource type="Script" uid="uid://ce45mex6kve71" path="res://scripts/depth_gauge.gd" id="2_gauge"]
+[ext_resource type="Texture2D" uid="uid://vyxdth11ayym" path="res://Assets/UI/depthgauge_under.png" id="3_under"]
+[ext_resource type="Texture2D" uid="uid://demnopw4564gq" path="res://Assets/UI/depthgauge_over.png" id="4_over"]
+[ext_resource type="Texture2D" uid="uid://ci3wpxy1avrde" path="res://Assets/UI/depthgauge_fill.png" id="5_fill"]
+[ext_resource type="Texture2D" uid="uid://benew147bne3u" path="res://Assets/UI/depthgauge_head.png" id="6_head"]
+[ext_resource type="Texture2D" uid="uid://dnqgfgr8l4j5" path="res://Assets/UI/depthgauge_marker.png" id="7_marker"]
+
+[sub_resource type="Gradient" id="Gradient_vignette"]
+offsets = PackedFloat32Array(0.12650603, 0.2, 0.8, 0.8674699)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nt7q6"]
+gradient = SubResource("Gradient_vignette")
 
 [sub_resource type="LabelSettings" id="LabelSettings_f23mj"]
 font = ExtResource("1_nt7q6")
 font_size = 35
 
 [node name="UI" type="CanvasLayer" unique_id=3063609]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1823702116]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_nt7q6")
+expand_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=831290791]
 offset_right = 153.0
@@ -16,3 +40,50 @@ offset_bottom = 42.0
 layout_mode = 2
 text = " Lives: 3"
 label_settings = SubResource("LabelSettings_f23mj")
+
+[node name="DepthGauge" type="Control" parent="." unique_id=1500000001]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -228.0
+offset_right = -60.0
+grow_horizontal = 0
+scale = Vector2(2, 2)
+mouse_filter = 2
+script = ExtResource("2_gauge")
+
+[node name="Bar" type="TextureProgressBar" parent="DepthGauge" unique_id=1500000002]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 228.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+fill_mode = 2
+texture_under = ExtResource("3_under")
+texture_over = ExtResource("4_over")
+texture_progress = ExtResource("5_fill")
+texture_progress_offset = Vector2(21, 9)
+
+[node name="Head" type="TextureRect" parent="DepthGauge" unique_id=1500000003]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 9.0
+offset_right = 31.0
+offset_bottom = 10.0
+mouse_filter = 2
+texture = ExtResource("6_head")
+
+[node name="Marker" type="TextureRect" parent="DepthGauge" unique_id=1500000004]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 5.0
+offset_right = 43.0
+offset_bottom = 14.0
+mouse_filter = 2
+texture = ExtResource("7_marker")
