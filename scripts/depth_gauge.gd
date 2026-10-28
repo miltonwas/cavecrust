@@ -3,7 +3,7 @@ extends Control
 const TUBE_POS := Vector2(21, 9)       # top left of the fill area inside the textures
 const TUBE_HEIGHT := 210.0             # three areas of 70 px
 const MARKER_X := 35.0
-const MARKER_HALF := 4.0
+const MARKER_HALF := 8.0
 
 @export_range(0.0, 1.0, 0.001) var progress: float = 0.0:
 	set(value):

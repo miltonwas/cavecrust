@@ -6,6 +6,8 @@ const ACC = 2000
 const JUMP_SPEED = 700
 const GRAVITY = 1500
 
+signal player_dead
+
 enum{IDLE, WALK, AIR, PUNCH, DEAD}
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
@@ -21,6 +23,9 @@ const PUNCH_OFFSETS = {
 
 # Enemies already hit by the current punch, so one punch only hits each once.
 var punched_enemies: Array = []
+
+signal lives_changed(lives: int)
+var lives := 3
 
 var state = IDLE
 var is_dead: bool = false
@@ -135,6 +140,26 @@ func _check_punch_hits() -> void:
 			# Push the enemy away from the player.
 			enemy.take_hit((enemy.global_position - global_position).normalized())
 
+# Called by an enemy whose attack hits.
+func take_damage() -> void:
+	if lives <= 0:
+		return
+	lives -= 1
+	lives_changed.emit(lives)
+	_screen_shake()
+	if lives == 0:
+		_enter_dead_state(Vector2.ZERO)
+
+# Jerks the camera around a few times, then puts it back.
+func _screen_shake() -> void:
+	var cam := get_viewport().get_camera_2d()
+	if cam == null:
+		return
+	var tween := create_tween()
+	for i in 6:
+		tween.tween_property(cam, "offset", Vector2(randf_range(-5, 5), randf_range(-5, 5)), 0.04)
+	tween.tween_property(cam, "offset", Vector2.ZERO, 0.04)
+
 #-------------ENTER STATE FUNCTIONS--------------
 func _enter_idle_state() -> void:
 	state = IDLE
@@ -157,3 +182,9 @@ func _enter_dead_state(dir: Vector2) -> void:
 	if not is_dead:
 		state = DEAD
 		is_dead = true
+		# No death animation yet: freeze, fade out, then restart the level.
+		anim.stop()
+		var tween := create_tween()
+		tween.tween_property(anim, "modulate", Color(1, 0, 0, 0), 1.0)
+		tween.tween_interval(1.0)
+		emit_signal("player_dead")

@@ -5,6 +5,9 @@ const STRIP_ROWS := 1280
 
 @onready var cave_material: ShaderMaterial = $Cave.material
 @onready var depth_gauge = $UI/DepthGauge
+@onready var game_over: CanvasLayer = $GameOver
+@onready var camera_2d: Camera2D = $Camera2D
+
 
 # Which cave to start in: 1 = gold mine, 2 = crystal cave, 3 = magma.
 # Change it from code with: cave = 2
@@ -35,11 +38,24 @@ var depth := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	game_over.hide()
 	cave_length = cave_length
 	_jump_to_cave()
+	$Player.lives_changed.connect(func(lives): $UI/HBoxContainer/Label.text = " Lives: %d" % lives)
+	$Player.player_dead.connect(_on_player_dead)
+	$Player.get_node("RemoteTransform2D").remote_path = camera_2d.get_path()
+	game_over.button_pressed.connect(_game_over_respawn)
 	for wheel in _wheels():
 		wheel.play("default")
 
+func _game_over_respawn() -> void:
+	get_tree().reload_current_scene()
+
+func _on_player_dead() -> void:
+	speed = -300
+	game_over.show()
+	$Player/RemoteTransform2D.update_position = false
+	camera_2d.position = Vector2.ZERO
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

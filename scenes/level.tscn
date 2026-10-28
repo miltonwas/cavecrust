@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cragyer4v6u6q" path="res://Assets/cave_pics/cave shader/strip_transition_2_to_3.png" id="18_t23"]
 [ext_resource type="PackedScene" uid="uid://wop0eb672o2n" path="res://scenes/enemy_mini.tscn" id="19_gunhw"]
 [ext_resource type="Texture2D" uid="uid://bmjj7sidkla41" path="res://Assets/cave_pics/cave shader/strip_level3_magma.png" id="19_level3"]
+[ext_resource type="PackedScene" uid="uid://b134aquu4dky0" path="res://scenes/game_over.tscn" id="20_8gofh"]
 [ext_resource type="Texture2D" uid="uid://chn775f8khb82" path="res://Assets/hd_platform_wheelless.png" id="20_platform"]
 [ext_resource type="Texture2D" uid="uid://c4v4u6i2eub1u" path="res://Assets/platform/wheel_back_left.png" id="21_WheelBackLeft"]
 [ext_resource type="Texture2D" uid="uid://dmwnekrp2ofcs" path="res://Assets/platform/wheel_back_right.png" id="22_WheelBackRight"]
@@ -301,7 +302,7 @@ scale = Vector2(2, 2)
 mouse_filter = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1743512782]
-position = Vector2(0, 25)
+position = Vector2(0, 97)
 scale = Vector2(2, 2)
 texture = ExtResource("7_8c41q")
 
@@ -330,15 +331,15 @@ position = Vector2(122, -120)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_WheelBackRight")
 
-[node name="Player" parent="." unique_id=567548331 instance=ExtResource("1_2q6dc")]
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=965405618]
-scale = Vector2(3, 3)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=965405618]
+scale = Vector2(2.4, 2.4)
 zoom = Vector2(1.8, 1.8)
 limit_left = -400
 limit_top = -280
 limit_right = 400
 limit_bottom = 260
+
+[node name="Player" parent="." unique_id=567548331 instance=ExtResource("1_2q6dc")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1186845777]
 
@@ -350,3 +351,5 @@ polygon = PackedVector2Array(0, -125, 72, -118, 114, -104, 157, -80, 185, -51, 2
 
 [node name="EnemyMini" parent="." unique_id=127921243 instance=ExtResource("19_gunhw")]
 position = Vector2(-45, 6)
+
+[node name="GameOver" parent="." unique_id=1804648640 instance=ExtResource("20_8gofh")]

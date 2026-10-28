@@ -595,8 +595,8 @@ height = 44.0
 size = Vector2(26, 26)
 
 [node name="Player" type="CharacterBody2D" unique_id=567548331]
-motion_mode = 1
 scale = Vector2(0.8, 0.8)
+motion_mode = 1
 script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=73253460]
@@ -622,3 +622,5 @@ position = Vector2(0, -4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Punch_hitbox" unique_id=1104438600]
 shape = SubResource("RectangleShape2D_punch")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="." unique_id=535602876]
