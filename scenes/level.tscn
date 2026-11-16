@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bmjj7sidkla41" path="res://Assets/cave_pics/cave shader/strip_level3_magma.png" id="19_level3"]
 [ext_resource type="PackedScene" uid="uid://b134aquu4dky0" path="res://scenes/game_over.tscn" id="20_8gofh"]
 [ext_resource type="Texture2D" uid="uid://chn775f8khb82" path="res://Assets/hd_platform_wheelless.png" id="20_platform"]
+[ext_resource type="PackedScene" uid="uid://c63e7nqfos0j1" path="res://scenes/paused.tscn" id="21_h6wmr"]
 [ext_resource type="Texture2D" uid="uid://c4v4u6i2eub1u" path="res://Assets/platform/wheel_back_left.png" id="21_WheelBackLeft"]
 [ext_resource type="Texture2D" uid="uid://dmwnekrp2ofcs" path="res://Assets/platform/wheel_back_right.png" id="22_WheelBackRight"]
 [ext_resource type="Texture2D" uid="uid://ci7n21xoxkvan" path="res://Assets/platform/wheel_side_left.png" id="23_WheelSideLeft"]
@@ -293,20 +294,25 @@ animations = [{
 
 [node name="Level" type="Node2D" unique_id=2020780794]
 script = ExtResource("5_level")
+cave_length = 6
 
 [node name="Cave" type="ColorRect" parent="." unique_id=2129578294]
 material = SubResource("ShaderMaterial_cave")
-offset_left = -400.0
-offset_top = -280.0
+offset_left = 57.0
+offset_top = -54.0
+offset_right = 549.0
+offset_bottom = 302.0
 scale = Vector2(2, 2)
 mouse_filter = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1743512782]
-position = Vector2(0, 97)
+position = Vector2(563, 410)
 scale = Vector2(2, 2)
 texture = ExtResource("7_8c41q")
 
 [node name="Platform" type="Sprite2D" parent="." unique_id=1670886540]
+position = Vector2(550.25006, 358.00003)
+scale = Vector2(1.1683466, 1.1453489)
 texture = ExtResource("20_platform")
 
 [node name="WheelSideLeft" type="AnimatedSprite2D" parent="Platform" unique_id=864676895]
@@ -331,25 +337,24 @@ position = Vector2(122, -120)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_WheelBackRight")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=965405618]
-scale = Vector2(2.4, 2.4)
-zoom = Vector2(1.8, 1.8)
-limit_left = -400
-limit_top = -280
-limit_right = 400
-limit_bottom = 260
-
 [node name="Player" parent="." unique_id=567548331 instance=ExtResource("1_2q6dc")]
+position = Vector2(564.99994, 302.99997)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1186845777]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=251480495]
+position = Vector2(549, 358.00003)
+scale = Vector2(1.1462216, 1.1402637)
 build_mode = 1
-polygon = PackedVector2Array(0, -125, 72, -118, 114, -104, 157, -80, 185, -51, 200, -16, 200, 18, 179, 55, 145, 86, 95, 110, 36, 123, -5, 123, -48, 120, -102, 108, -147, 85, -179, 56, -199, 19, -198, -17, -181, -56, -145, -88, -99, -112, -48, -122)
+polygon = PackedVector2Array(0, -125, 72, -118, 114, -104, 157, -80, 185, -51, 200, -16, 200, 18, 179, 55, 145, 86, 121.65808, 99.65369, 95, 110, 36, 123, -5, 123, -48, 120, -102, 108, -147, 85, -179, 56, -199, 19, -198, -17, -181, -56, -145, -88, -99, -112, -48, -122)
 
 [node name="UI" parent="." unique_id=3063609 instance=ExtResource("10_olg7q")]
 
 [node name="EnemyMini" parent="." unique_id=127921243 instance=ExtResource("19_gunhw")]
-position = Vector2(-45, 6)
+position = Vector2(483.99994, 292.99997)
 
 [node name="GameOver" parent="." unique_id=1804648640 instance=ExtResource("20_8gofh")]
+visible = false
+
+[node name="Paused" parent="." unique_id=1109676475 instance=ExtResource("21_h6wmr")]
+visible = false

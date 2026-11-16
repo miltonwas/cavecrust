@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b134aquu4dky0"]
 
-[ext_resource type="Script" uid="uid://bvxrvx8cniyc2" path="res://scenes/game_over.gd" id="1_wqhvx"]
+[ext_resource type="Script" uid="uid://bvxrvx8cniyc2" path="res://scripts/game_over.gd" id="1_wqhvx"]
 [ext_resource type="FontFile" uid="uid://cawstl78vr723" path="res://Assets/fonts/BoldPixels.ttf" id="1_xeevv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0nqlu"]

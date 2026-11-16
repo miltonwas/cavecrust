@@ -23,6 +23,7 @@ const PUNCH_OFFSETS = {
 
 # Enemies already hit by the current punch, so one punch only hits each once.
 var punched_enemies: Array = []
+@onready var level: Node2D = $".."
 
 signal lives_changed(lives: int)
 var lives := 3
@@ -33,6 +34,7 @@ var facing := "down" # "down", "up", "left" or "right"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	level.paused_player.connect(_paused_player)
 	# Lets enemies find the player.
 	add_to_group("player")
 	_play_anim("idle")
@@ -72,7 +74,8 @@ func _update_direction(input_dir: Vector2, delta: float) -> void:
 # Plays e.g. "walk" or "idle" in the direction the player is facing.
 func _play_anim(action: String) -> void:
 	anim.play(action + "_" + facing)
-
+func _paused_player() -> void:
+	_enter_paused_state()
 
 func _movement(input_dir: Vector2, delta: float) -> void:
 	var target_velocity := input_dir * MAX_SPEED
@@ -129,6 +132,9 @@ func _punch_state(delta: float) -> void:
 			_play_anim("walk")
 
 func _dead_state(delta: float) -> void:
+	pass
+
+func _paused_state(delta: float) -> void:
 	pass
 
 # Hits every enemy whose Area2D is inside the punch hitbox.
@@ -188,3 +194,7 @@ func _enter_dead_state(dir: Vector2) -> void:
 		tween.tween_property(anim, "modulate", Color(1, 0, 0, 0), 1.0)
 		tween.tween_interval(1.0)
 		emit_signal("player_dead")
+		
+func _enter_paused_state() -> void:
+	anim.stop()
+	

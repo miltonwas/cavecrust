@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://c63e7nqfos0j1"]
+
+[ext_resource type="Script" uid="uid://bkyig3yad5gbc" path="res://scripts/paused.gd" id="1_f4kqd"]
+[ext_resource type="FontFile" uid="uid://cawstl78vr723" path="res://Assets/fonts/BoldPixels.ttf" id="1_r8o1p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g10q5"]
+bg_color = Color(0.11858138, 0.11858139, 0.11858132, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4kqd"]
+bg_color = Color(0.080783375, 0.08078333, 0.080783345, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qn1x"]
+bg_color = Color(0.21590185, 0.21590167, 0.2159017, 1)
+
+[node name="Paused" type="CanvasLayer" unique_id=1109676475]
+script = ExtResource("1_f4kqd")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=679195587]
+offset_left = -33.0
+offset_top = -16.0
+offset_right = 1190.0
+offset_bottom = 674.0
+color = Color(0.21176471, 0.21176471, 0.21176471, 0.6509804)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1889970959]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1152119024]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.1148968, 0.11489681, 0.1148968, 1)
+theme_override_fonts/font = ExtResource("1_r8o1p")
+theme_override_font_sizes/font_size = 58
+text = "Paused"
+
+[node name="RestartButton" type="Button" parent="." unique_id=1734633154]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -217.0
+offset_top = 120.0
+offset_right = -47.0
+offset_bottom = 171.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_r8o1p")
+theme_override_font_sizes/font_size = 37
+theme_override_styles/normal = SubResource("StyleBoxFlat_g10q5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f4kqd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1qn1x")
+text = "Restart"
+
+[node name="ContinueButton" type="Button" parent="." unique_id=502969704]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = 119.0
+offset_right = 210.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_r8o1p")
+theme_override_font_sizes/font_size = 37
+theme_override_styles/normal = SubResource("StyleBoxFlat_g10q5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f4kqd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1qn1x")
+text = "Continue"
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
